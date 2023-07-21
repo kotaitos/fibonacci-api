@@ -51,7 +51,7 @@ app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
       }
     },
   })
-def read_fib(n: int):
+def read_fib(n):
   try:
     result = fibonacci(n)
   except ValueError as e:
