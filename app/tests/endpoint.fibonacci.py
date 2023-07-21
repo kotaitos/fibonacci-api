@@ -1,10 +1,11 @@
+import os
 import unittest
 import requests
 
 
 class TestFibonacciEndpoint(unittest.TestCase):
   def setUp(self):
-    self.base_url = 'http://localhost:8000/fib'
+    self.base_url = os.getenv('BASE_URL', 'http://localhost:8000/fib')
     
   
   def test_base_cases(self):
