@@ -1,4 +1,4 @@
-# speee technology challenge
+# fibonacci api
 
 # 概要
 指定したn番目のフィボナッチ数を返すREST APIを実装したものである。
