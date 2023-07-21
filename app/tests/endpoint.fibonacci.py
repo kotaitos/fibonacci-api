@@ -101,4 +101,5 @@ class TestFibonacciEndpoint(unittest.TestCase):
     
     
 if __name__ == '__main__':
+  print('base_url:', os.getenv('BASE_URL', 'http://localhost:8000/fib'))
   unittest.main()
