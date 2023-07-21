@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
+from fastapi.exceptions import RequestValidationError
 from utils import fibonacci
 from middleware import TimeoutMiddleware
 
@@ -10,6 +11,11 @@ REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", 5))
 
 app = FastAPI()
 app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
+
+
+@app.exception_handler(RequestValidationError)
+async def handler(request, exc):
+  return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"status": status.HTTP_400_BAD_REQUEST, "message": "Bad Request"})
 
 
 @app.get(
@@ -39,6 +45,17 @@ app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
         }
       }
     },
+    422: {
+      "description": "Unprocessable Entity",
+      "content": {
+        "application/json": {
+          "example": {
+            "status": 422,
+            "message": "Unprocessable Entity"
+          }
+        }
+      }
+    },
     500: {
       "description": "Internal Server Error",
       "content": {
@@ -50,6 +67,17 @@ app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
         }
       }
     },
+    504: {
+      "description": "Gateway Timeout",
+      "content": {
+        "application/json": {
+          "example": {
+            "status": 504,
+            "message": "Gateway timeout."
+          }
+        }
+      }
+    }
   })
 def read_fib(n: int):
   try:
