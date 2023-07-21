@@ -17,8 +17,8 @@ class TestFibonacci(unittest.TestCase):
   
   
   def test_large_input(self):
-    self.assertEqual(fibonacci(10), 55)
-    self.assertEqual(fibonacci(20), 6765)
+    self.assertEqual(fibonacci(100), 354224848179261915075)
+    self.assertEqual(fibonacci(200), 280571172992510140037611932413038677189525)
     
   
   def test_negative_input(self):
@@ -34,7 +34,7 @@ class TestFibonacci(unittest.TestCase):
     with self.assertRaises(ValueError):
       fibonacci(3.14)
     
-    with self.assertRaises(ValueError):
+    with self.assertRaises(TypeError):
       fibonacci([1, 2, 3])
     
     with self.assertRaises(ValueError):
@@ -48,8 +48,13 @@ class TestFibonacci(unittest.TestCase):
       
   
   def test_performance(self):
-    self.assertEqual(fibonacci(40), 102334155)
+    self.assertEqual(fibonacci(500), 139423224561697880139724382870407283950070256587697307264108962948325571622863290691557658876222521294125)
     
+  
+  def test_too_large_input(self):
+    with self.assertRaises(RecursionError):
+      fibonacci(1000)
+      
   
   def test_random_inputs(self):
     self.assertEqual(fibonacci(8), 21)
