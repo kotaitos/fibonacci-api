@@ -4,7 +4,7 @@ from utils import fibonacci
 
 app = FastAPI()
 
-  
+
 @app.get("/fib")
 def read_fib(n: int):
   try:
