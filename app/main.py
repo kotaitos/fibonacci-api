@@ -1,8 +1,15 @@
+import os
 from fastapi import FastAPI, status
 from fastapi.responses import JSONResponse
 from utils import fibonacci
+from middleware import TimeoutMiddleware
+
+
+REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", 5))
+
 
 app = FastAPI()
+app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
 
 
 @app.get("/fib")
