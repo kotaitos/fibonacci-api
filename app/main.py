@@ -12,7 +12,45 @@ app = FastAPI()
 app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
 
 
-@app.get("/fib")
+@app.get(
+  "/fib",
+  summary="Fibonacci",
+  description="Returns the nth number in the Fibonacci sequence",
+  response_description="The nth number in the Fibonacci sequence",
+  responses={
+    200: {
+      "description": "Successful Response",
+      "content": {
+        "application/json": {
+          "example": {
+            "result": 3
+          }
+        }
+      }
+    },
+    400: {
+      "description": "Bad Request",
+      "content": {
+        "application/json": {
+          "example": {
+            "status": 400,
+            "message": "Bad Request"
+          }
+        }
+      }
+    },
+    500: {
+      "description": "Internal Server Error",
+      "content": {
+        "application/json": {
+          "example": {
+            "status": 500,
+            "message": "Internal Server Error"
+          }
+        }
+      }
+    },
+  })
 def read_fib(n: int):
   try:
     result = fibonacci(n)
