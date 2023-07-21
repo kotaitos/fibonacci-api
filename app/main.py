@@ -7,7 +7,6 @@ app = FastAPI()
   
 @app.get("/fib")
 def read_fib(n: int):
-  # フィボナッチ数列を返す
   try:
     result = fibonacci(n)
   except ValueError as e:
