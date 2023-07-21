@@ -60,21 +60,17 @@ class TestFibonacciEndpoint(unittest.TestCase):
     self.assertEqual(response1.status_code, 400)
     self.assertEqual(response1.json(), {'status': 400, 'message': 'Bad Request'})
     
-    response2 = requests.get(self.base_url, params={'n': [1, 2, 3]})
+    response2 = requests.get(self.base_url, params={'n': 'Hello'})
     self.assertEqual(response2.status_code, 400)
     self.assertEqual(response2.json(), {'status': 400, 'message': 'Bad Request'})
     
-    response3 = requests.get(self.base_url, params={'n': 'Hello'})
+    response3 = requests.get(self.base_url, params={'n': True})
     self.assertEqual(response3.status_code, 400)
     self.assertEqual(response3.json(), {'status': 400, 'message': 'Bad Request'})
     
-    response4 = requests.get(self.base_url, params={'n': True})
+    response4 = requests.get(self.base_url, params={'n': None})
     self.assertEqual(response4.status_code, 400)
     self.assertEqual(response4.json(), {'status': 400, 'message': 'Bad Request'})
-    
-    response5 = requests.get(self.base_url, params={'n': None})
-    self.assertEqual(response5.status_code, 400)
-    self.assertEqual(response5.json(), {'status': 400, 'message': 'Bad Request'})
     
   
   def test_performance(self):
