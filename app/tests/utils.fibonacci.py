@@ -2,7 +2,7 @@ import sys
 sys.path.append('../')
 
 import unittest
-from app.utils import fibonacci
+from utils import fibonacci
 
 class TestFibonacci(unittest.TestCase):
   def test_base_cases(self):
