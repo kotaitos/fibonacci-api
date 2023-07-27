@@ -19,9 +19,12 @@ def fibonacci(n: int):
   if r and r.exists(n):
     return int(r.get(n))
   
-  result = fibonacci(n - 1) + fibonacci(n - 2)
+  fib_sequence = [0, 1]
+  for i in range(2, n + 1):
+      fib_num = fib_sequence[i - 1] + fib_sequence[i - 2]
+      fib_sequence.append(fib_num)
   
   if r:
-    r.set(n, result)
+    r.set(n, fib_sequence[n])
   
-  return result
+  return fib_sequence[n]
