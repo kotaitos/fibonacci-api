@@ -80,12 +80,11 @@ async def handler(request, exc):
     }
   })
 def read_fib(n: int):
+  if (type(n) != int) or (n < 0):
+    return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"status": status.HTTP_400_BAD_REQUEST, "message": "Bad Request"})
+  
   try:
     result = fibonacci(n)
-  except ValueError as e:
-    return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"status": status.HTTP_400_BAD_REQUEST, "message": "Bad Request"})
-  except RecursionError as e:
-    return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"status": status.HTTP_400_BAD_REQUEST, "message": "Requested number is too large"})
   except Exception as e:
     return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content={"status": status.HTTP_500_INTERNAL_SERVER_ERROR, "message": "Internal Server Error"})
   
