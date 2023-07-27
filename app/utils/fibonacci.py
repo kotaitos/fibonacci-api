@@ -16,15 +16,33 @@ def fibonacci(n: int):
   elif n <= 2:
     return 1
   
-  if r and r.exists(n):
+  if r.exists(n):
     return int(r.get(n))
   
-  fib_sequence = [0, 1]
-  for i in range(2, n + 1):
-    fib_num = fib_sequence[i - 1] + fib_sequence[i - 2]
-    fib_sequence.append(fib_num)
   
-  if r:
-    r.set(n, fib_sequence[n])
+  fib_sequence = [0, 1]
+  
+  # n以下の最も大きい連続するフィボナッチ数をredisから取得
+  for i in range(n, 1, -1):
+    if r.exists(i) and r.exists(i - 1):
+      fib_sequence = [int(r.get(i - 1)), int(r.get(i))]
+      print(i)
+      break
+  
+  # n以下のフィボナッチ数を計算
+  for i in range(len(fib_sequence), n + 1):
+    fib_num = fib_sequence[-1] + fib_sequence[-2]
+    fib_sequence.append(fib_num)
+    r.set(i, fib_num)
   
   return fib_sequence[n]
+  
+  
+if __name__ == '__main__':
+  import sys
+  
+  if len(sys.argv) != 2:
+    print('Usage: python fibonacci.py [n]')
+  else:
+    print(fibonacci(int(sys.argv[1])))
+    
