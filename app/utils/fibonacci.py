@@ -1,7 +1,12 @@
 import redis
+import os
 
 
-pool = redis.ConnectionPool(host='redis', port=6379, db=0)
+pool = redis.ConnectionPool(
+  host=os.getenv('REDIS_HOST', 'redis'),
+  port=int(os.getenv('REDIS_PORT', 6379)),
+  db=int(os.getenv('REDIS_DB', 0)))
+
 r = redis.StrictRedis(connection_pool=pool)
 
 
