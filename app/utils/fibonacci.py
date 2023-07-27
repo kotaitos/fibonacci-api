@@ -1,13 +1,5 @@
-from functools import lru_cache
-
-
-@lru_cache(maxsize=None)
 def fibonacci(n: int):
-  if type(n) != int:
-    raise ValueError("Invalid input")
-  elif n < 0:
-    raise ValueError("Invalid input")
-  elif n == 0:
+  if n == 0:
     return 0
   elif n <= 2:
     return 1
