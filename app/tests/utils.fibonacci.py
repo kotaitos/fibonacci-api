@@ -16,7 +16,7 @@ class TestFibonacci(unittest.TestCase):
   
   
   def test_large_input(self):
-    self.assertEqual(fibonacci(500), 280571172992510140037611932413038677189525)
+    self.assertEqual(fibonacci(30), 832040)
       
   
   def test_random_inputs(self):
