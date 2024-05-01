@@ -8,7 +8,6 @@ from middleware import TimeoutMiddleware
 
 REQUEST_TIMEOUT = int(os.getenv("REQUEST_TIMEOUT", 5))
 
-
 app = FastAPI()
 app.add_middleware(TimeoutMiddleware, timeout=REQUEST_TIMEOUT)
 
